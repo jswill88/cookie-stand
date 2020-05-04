@@ -13,10 +13,19 @@ var seattle = {
   makeCookieArray: function(){
     var cookieArray = [];
     var total = 0;
-    for (var i = 0; i < 14; i++) {
-      cookieArray.push(this.cookiesSoldPerHour());
-      total = total + this.makeCookieArray()[i];
+    var hour = '';
+    for (var i = 6; i < 20; i++) {
+      if (i > 12) {
+        hour = `${i-12}pm`;
+      }
+      else {
+        hour = `${i}am`;
+      }
+      var soldThisHour = this.cookiesSoldPerHour();
+      cookieArray.push(`${hour}: ${soldThisHour}`);
+      total = total + soldThisHour;
     }
-    return [cookieArray,total];
+    cookieArray.push(`Total: ${total}`);
+    return cookieArray;
   }
 };
