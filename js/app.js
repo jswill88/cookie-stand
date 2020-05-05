@@ -9,8 +9,8 @@ var seattle = {
   cookieArray: [],
 
   cookiesSoldPerHour: function(){
-    var customer = Math.random()*(this.maxCust - this.minCust) + this.minCust;
-    var cookiesPerHour = Math.floor((this.avgCookieSale) * customer);
+    var customer = Math.floor(Math.random()*(this.maxCust - this.minCust + 1) + this.minCust);
+    var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
     return cookiesPerHour;
   },
 
@@ -54,8 +54,8 @@ var tokyo = {
   cookieArray: [],
 
   cookiesSoldPerHour: function() {
-    var customer = Math.random()*(this.maxCust - this.minCust) + this.minCust;
-    var cookiesPerHour = Math.floor((this.avgCookieSale) * customer);
+    var customer = Math.floor(Math.random()*(this.maxCust - this.minCust + 1) + this.minCust);
+    var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
     return cookiesPerHour;
   },
 
@@ -99,8 +99,8 @@ var dubai = {
   cookieArray: [],
 
   cookiesSoldPerHour: function() {
-    var customer = Math.random()*(this.maxCust - this.minCust) + this.minCust;
-    var cookiesPerHour = Math.floor((this.avgCookieSale)*customer);
+    var customer = Math.floor(Math.random()*(this.maxCust - this.minCust + 1) + this.minCust);
+    var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
     return cookiesPerHour;
   },
 
@@ -144,8 +144,8 @@ var paris = {
   cookieArray: [],
 
   cookiesSoldPerHour: function() {
-    var customer = Math.random()*(this.maxCust - this.minCust) + this.minCust;
-    var cookiesPerHour = Math.floor((this.avgCookieSale)*customer);
+    var customer = Math.floor(Math.random()*(this.maxCust - this.minCust + 1) + this.minCust);
+    var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
     return cookiesPerHour;
   },
 
@@ -190,8 +190,8 @@ var lima = {
   cookieArray: [],
 
   cookiesSoldPerHour: function() {
-    var customer = Math.random()*(this.maxCust - this.minCust) + this.minCust;
-    var cookiesPerHour = Math.floor((this.avgCookieSale)*customer);
+    var customer = Math.floor(Math.random()*(this.maxCust - this.minCust + 1) + this.minCust);
+    var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
     return cookiesPerHour;
   },
 
