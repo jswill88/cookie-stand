@@ -1,11 +1,5 @@
 'use strict';
 
-
-
-
-
-//   ['Lima',2,16,4.6]
-// ];
 var seattle = {
 
   location: 'Seattle',
@@ -27,6 +21,8 @@ var seattle = {
     for (var i = 0; i < 14; i++) {
       if (i + 6 > 12) {
         hour = `${i - 6}pm`;
+      } else if (i === 6) {
+        hour = '12pm';
       } else {
         hour = `${i + 6}am`;
       }
@@ -70,6 +66,8 @@ var tokyo = {
     for (var i = 0; i < 14; i++) {
       if (i + 6 > 12) {
         hour = `${i - 6}pm`;
+      } else if (i === 6) {
+        hour = '12pm';
       } else {
         hour = `${i + 6}am`;
       }
@@ -113,6 +111,8 @@ var dubai = {
     for (var i = 0; i < 14; i++) {
       if (i + 6 > 12) {
         hour = `${i - 6}pm`;
+      } else if (i === 6) {
+        hour = '12pm';
       } else {
         hour = `${i + 6}am`;
       }
@@ -156,6 +156,8 @@ var paris = {
     for (var i = 0; i < 14; i++) {
       if (i + 6 > 12) {
         hour = `${i - 6}pm`;
+      } else if (i === 6) {
+        hour = '12pm';
       } else {
         hour = `${i + 6}am`;
       }
@@ -179,8 +181,55 @@ var paris = {
   }
 };
 
+
+var lima = {
+  location: 'Lima',
+  minCust: 2,
+  maxCust: 16,
+  avgCookieSale: 4.6,
+  cookieArray: [],
+
+  cookiesSoldPerHour: function() {
+    var customer = Math.random()*(this.maxCust - this.minCust) + this.minCust;
+    var cookiesPerHour = Math.floor((this.avgCookieSale)*customer);
+    return cookiesPerHour;
+  },
+
+  makeCookieArray: function(){
+    console.log(this.location);
+    var total = 0;
+    var hour = '';
+    for (var i = 0; i < 14; i++) {
+      if (i + 6 > 12) {
+        hour = `${i - 6}pm`;
+      } else if (i === 6) {
+        hour = '12pm';
+      } else {
+        hour = `${i + 6}am`;
+      }
+      var soldThisHour = this.cookiesSoldPerHour();
+      this.cookieArray.push(`${hour}: ${soldThisHour}`);
+      console.log(`current ${soldThisHour}`);
+      total += soldThisHour;
+      console.log(`total ${total}`);
+    }
+    this.cookieArray.push(`Total: ${total}`);
+  },
+
+  addListToPage: function(){
+    this.makeCookieArray();
+    for (var j = 0; j < this.cookieArray.length; j++) {
+      var parent = document.getElementById(this.location.toLowerCase());
+      var listItem = document.createElement('li');
+      listItem.textContent = this.cookieArray[j];
+      parent.appendChild(listItem);
+    }
+  }
+};
+
 seattle.addListToPage();
 tokyo.addListToPage();
 dubai.addListToPage();
 paris.addListToPage();
+lima.addListToPage();
 
