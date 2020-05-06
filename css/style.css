@@ -2,15 +2,30 @@ body {
   background-color: rgba(241, 195, 217, 0.815);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   color: rgb(7, 59, 39);
-  /* font-size: 1.1em; */
+  font-size: 1.1em;
 }
-header p {
+header p, footer {
   text-align: center;
-  padding: 10px;
+  padding: 10px 0 10px 0;
   background-color: rgb(5, 32, 5);
   color: white;
   width: 100%;
   height: 20px;
+}
+.link a {
+  margin: 10%;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .7em;
+  text-decoration: none;
+}
+footer a{
+  color: white;
+  text-decoration: none;
+  margin: 10%;
+}
+.link a:hover, footer a:hover {
+  text-decoration: underline;
 }
 h1 a {
   color: inherit;
@@ -26,27 +41,67 @@ h1 {
   letter-spacing: .03em;
   width: 100%
 }
-h3 {
-  font-size: 1em;
-  float: none;
-  text-align: center;
-  box-shadow: none;
-  border: solid black 2px;
+h2 {
+  font-size: 2em;
+  font-family: 'Anton', sans-serif;
+  letter-spacing: .04em;
+  margin-bottom: .3em;
+  padding-left: 20px;
+  text-shadow: aqua 1px 1px;
+  margin-top: .5em;
+}
+p,ul {
+  padding-left: 25px;
+  line-height: 1.4;
+  font-size: 1.2em;
+}
+ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+.line{
+  width: 100%;
+  display: flex;
+  text-align: justify;
+}
+.col1{
+  width: 50%;
+  padding: 20px;
+  border-right: black 1px solid;
+  box-shadow: green 2px 2px 1%;
+}
+#salmon {
+  width: 100%;
+}
+#old-man {
+  width: 100px;
+  float: right;
+  border-radius: 15%;
+  box-shadow: grey 2px 2px 3px;
+  margin-left: 10px;
+}
+#sales-footer {
+  margin-top: 20px;
 }
 
-
 /* table */
+.table-one{
+  padding: 0 3% 0 3%;
+}
+.table-one p {
+  margin-top: .5em;
+  font-size: 110%;
+  width: 600px;
+}
+
 table {
   width: 90%;
   background-color: rgb(196, 224, 213);
-  margin-left: 3%;
 }
 table, th, td { 
   border: solid black 2px;
-  padding: 4px;
 }
 td {
-  /* padding: 2px; */
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   color: rgb(7, 59, 39);

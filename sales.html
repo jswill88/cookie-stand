@@ -12,20 +12,30 @@
 <body>
   <header>
     <h1><a href="index.html">Pat's Salmon Cookies</a></h1>
+    <p>
+      <span class = "link"><a href = "index.html">Home</a></span>
+    The best Salmon cookies in the Northwest!
+      <span class = "link"><a href = "sales.html">Sales</a></span>
+    </p>  
   </header>
 
   <main>
-    <section>
+    <section class = "table-one">
       <h2>Hourly Salmon Cookie Sales By Location</h2>
       <table id="cookieChart"></table> 
-      <p>Estimations based on amount of customers each hour and average cookies purchased by each customer</p>
+      <p>Estimations are based on the amount of customers that come in each hour and  the average amount of cookies purchased by each customer</p>
     </section>
- 
- 
-  
+    <section class = "table-one">
+      <h2>Staff Needed for Each Hour at Each Location</h2>
+      <table id="cookieStaff"></table>
+      <p>Estimated staff needed based on cookies sold, at one staff member per 20 cookies sold, with no less than two staff at a given time. Totals show how many hours of labor are needed each day.</p>
+    </section>
   </main>
 
-  <footer></footer>
+  <footer id = "sales-footer">
+    <span class="contact"><a href="mailto:salmon@cookie.com">salmon@cookie.com</a></span>
+    <span class="contact"><a href="tel:206-555-9753">(206)555-9753</a></span>
+  </footer>
 
   <script src="js/app.js"></script>
 </body>
