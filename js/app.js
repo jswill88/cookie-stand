@@ -37,18 +37,21 @@ function CookiesPerLocation(location, minimumCustomers, maximumCustomers, avgCoo
   this.staffTotal = 0;
 }
 
+// Find average cookies per hour based on traffic trends
 CookiesPerLocation.prototype.cookiesSoldPerHour = function(x){
   var customer = Math.floor(Math.random()*(Math.ceil(this.maximumCustomers*trafficTrends[x]) - this.minimumCustomers + 1) + this.minimumCustomers);
   var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
   return cookiesPerHour;
 };
 
+// Find staff needed per hour based on cookie sales
 CookiesPerLocation.prototype.staffNeededPerHour = function(cookies){
   var staffNeeded = Math.ceil(cookies/20);
   if (staffNeeded < 2) {staffNeeded = 2;}
   return staffNeeded;
 };
 
+// Makes cookie array and staff needed array
 CookiesPerLocation.prototype.makeCookieArray = function(){
   console.log(this.location);
   for (var i = 0; i < hours.length; i++) {
@@ -65,6 +68,7 @@ CookiesPerLocation.prototype.makeCookieArray = function(){
   this.staffNeededArray.push(this.staffTotal);
 };
 
+// Renders cookie and staff table
 CookiesPerLocation.prototype.render = function(){
   this.makeCookieArray();
   var parent = document.getElementById('cookieChart');
@@ -92,7 +96,7 @@ CookiesPerLocation.prototype.render = function(){
   }
 };
 
-
+// Total cookie sales per hour accross locations
 function getTotals(){
   var totals = [];
   var hourlyTotal = 0;
@@ -103,6 +107,7 @@ function getTotals(){
   return totals;
 }
 
+// Total staff needed per hour accross locations
 function getStaffTotals(){
   var totals = [];
   var hourlyTotal = 0;
@@ -113,6 +118,7 @@ function getStaffTotals(){
   return totals;
 }
 
+// Renders hourly totals for both tables
 function renderHourlyTotals(table){
   // make tfoot
   var parent = document.getElementById(table);
