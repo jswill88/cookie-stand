@@ -80,17 +80,20 @@ ul {
   box-shadow: grey 2px 2px 3px;
   margin-left: 10px;
 }
+#sales-footer {
+  margin-top: 20px;
+}
 
 /* table */
-#table-one{
+.table-one{
   padding: 0 3% 0 3%;
 }
-#table-one p {
+.table-one p {
   margin-top: .5em;
   font-size: 110%;
-  float: left;
   width: 600px;
 }
+
 table {
   width: 90%;
   background-color: rgb(196, 224, 213);

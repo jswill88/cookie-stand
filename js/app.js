@@ -1,9 +1,10 @@
 'use strict';
 var hours = ['6am','7am','8am', '9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
+var trafficTrends = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
 
-function createTableHeader() {
+function createTableHeader(table) {
   // make thead
-  var parent = document.getElementById('cookieChart');
+  var parent = document.getElementById(table);
   var thead = document.createElement('thead');
   parent.appendChild(thead);
   // make tr
@@ -31,25 +32,37 @@ function CookiesPerLocation(location, minimumCustomers, maximumCustomers, avgCoo
   this.maximumCustomers = maximumCustomers;
   this.avgCookieSale = avgCookieSale;
   this.cookieArray = [],
+  this.staffNeededArray = [],
   this.total = 0;
+  this.staffTotal = 0;
 }
 
-CookiesPerLocation.prototype.cookiesSoldPerHour = function(){
-  var customer = Math.floor(Math.random()*(this.maximumCustomers - this.minimumCustomers + 1) + this.minimumCustomers);
+CookiesPerLocation.prototype.cookiesSoldPerHour = function(x){
+  var customer = Math.floor(Math.random()*(Math.ceil(this.maximumCustomers*trafficTrends[x]) - this.minimumCustomers + 1) + this.minimumCustomers);
   var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
   return cookiesPerHour;
+};
+
+CookiesPerLocation.prototype.staffNeededPerHour = function(cookies){
+  var staffNeeded = Math.ceil(cookies/20);
+  if (staffNeeded < 2) {staffNeeded = 2;}
+  return staffNeeded;
 };
 
 CookiesPerLocation.prototype.makeCookieArray = function(){
   console.log(this.location);
   for (var i = 0; i < hours.length; i++) {
-    var soldThisHour = this.cookiesSoldPerHour();
+    var soldThisHour = this.cookiesSoldPerHour(i);
+    var staffThisHour = this.staffNeededPerHour(soldThisHour);
     this.cookieArray.push(soldThisHour);
+    this.staffNeededArray.push(staffThisHour);
     console.log(`current ${soldThisHour}`);
     this.total += soldThisHour;
+    this.staffTotal += staffThisHour;
     console.log(`total ${this.total}`);
   }
   this.cookieArray.push(this.total);
+  this.staffNeededArray.push(this.staffTotal);
 };
 
 CookiesPerLocation.prototype.render = function(){
@@ -65,7 +78,20 @@ CookiesPerLocation.prototype.render = function(){
     cookieData.textContent = this.cookieArray[j];
     locationRow.appendChild(cookieData);
   }
+  // make second table
+  parent = document.getElementById('cookieStaff');
+  locationRow = document.createElement('tr');
+  parent.appendChild(locationRow);
+  rowTitle = document.createElement('th');
+  rowTitle.textContent = this.location;
+  locationRow.appendChild(rowTitle);
+  for (var k = 0; k < this.cookieArray.length; k++) {
+    var staffData = document.createElement('td');
+    staffData.textContent = this.staffNeededArray[k];
+    locationRow.appendChild(staffData);
+  }
 };
+
 
 function getTotals(){
   var totals = [];
@@ -77,9 +103,19 @@ function getTotals(){
   return totals;
 }
 
-function renderHourlyTotals(){
+function getStaffTotals(){
+  var totals = [];
+  var hourlyTotal = 0;
+  for (var i = 0; i < (hours.length + 1); i++) {
+    hourlyTotal = seattle.staffNeededArray[i] + tokyo.staffNeededArray[i] + dubai.staffNeededArray[i] + paris.staffNeededArray[i] + lima.staffNeededArray[i];
+    totals.push(hourlyTotal);
+  }
+  return totals;
+}
+
+function renderHourlyTotals(table){
   // make tfoot
-  var parent = document.getElementById('cookieChart');
+  var parent = document.getElementById(table);
   var tfoot = document.createElement('tfoot');
   parent.appendChild(tfoot);
   // make row
@@ -92,7 +128,11 @@ function renderHourlyTotals(){
   // add data
   for (var i = 0; i < getTotals().length; i++){
     var hourTotal = document.createElement('td');
-    hourTotal.textContent = getTotals()[i];
+    if (table === 'cookieChart') {
+      hourTotal.textContent = getTotals()[i];
+    } else if (table === 'cookieStaff') {
+      hourTotal.textContent = getStaffTotals()[i];
+    }
     tr.appendChild(hourTotal);
   }
 }
@@ -104,12 +144,14 @@ var paris = new CookiesPerLocation('Paris', 20, 38, 2.3);
 var lima = new CookiesPerLocation('Lima',2,16,4.6);
 
 
-createTableHeader();
+createTableHeader('cookieChart');
+createTableHeader('cookieStaff');
 seattle.render();
 tokyo.render();
 dubai.render();
 paris.render();
 lima.render();
-getTotals();
-renderHourlyTotals();
+renderHourlyTotals('cookieChart');
+renderHourlyTotals('cookieStaff');
+
 
