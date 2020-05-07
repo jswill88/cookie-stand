@@ -4,6 +4,10 @@ body {
   color: rgb(7, 59, 39);
   font-size: 1.1em;
 }
+header {
+  overflow: auto;
+  min-width: 500px;
+}
 header p, footer {
   text-align: center;
   padding: 10px 0 10px 0;
@@ -11,6 +15,7 @@ header p, footer {
   color: white;
   width: 100%;
   height: 20px;
+  min-width: 800px;
 }
 .link a {
   margin: 10%;
@@ -72,6 +77,8 @@ ul {
 }
 #salmon {
   width: 100%;
+  box-shadow: none;
+  border-radius: none;
 }
 #old-man {
   width: 100px;
@@ -120,4 +127,45 @@ td:last-child, tfoot td{
 }
 td:hover{
   text-decoration: underline;
+}
+#salmon-banner{
+  float:left;
+  width: 200px;
+  margin: 15px 0 15px 25px;
+  box-shadow: none;
+  border-radius: none;
+}
+
+#frosted{
+  height: 170px;
+  float: left;
+  border-radius: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+#cookie-cutter {
+  height: 170px;
+  border-radius: 15px;
+  float: right;
+  margin-right: 20px;
+
+}
+#family {
+  width: 225px;
+  float: right;
+  margin-left: 20px;
+  border-radius: 15px;
+}
+#chinook {
+  margin-top: 20px;
+}
+#fish-shirt {
+  height: 170px;
+  float: left;
+  margin: 10px;
+}
+.shadow {
+  border-radius: 15%;
+  box-shadow: grey 2px 2px 3px;
 }
