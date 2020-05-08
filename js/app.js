@@ -24,6 +24,7 @@ function CookiesPerLocation(location, minimumCustomers, maximumCustomers, avgCoo
 
 // Find average cookies per hour based on traffic trends
 CookiesPerLocation.prototype.cookiesSoldPerHour = function(x){
+  // Need to check if traffic trends bring max below min. If so, return min
   if (this.maximumCustomers * trafficTrends[x] > this.minimumCustomers) {
     var customer = Math.floor(Math.random()*(this.maximumCustomers*trafficTrends[x] - this.minimumCustomers + 1) + this.minimumCustomers);
   } else {
