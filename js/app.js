@@ -1,48 +1,15 @@
 'use strict';
+
+// Global Variables
 var hours = ['6am','7am','8am', '9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
 var trafficTrends = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
+
 // Array holding all location objects
 var allLocationObjects =[];
 var form = document.getElementById('form');
 form.addEventListener('submit', addNewLocation);
 
-function addNewLocation(event) {
-  event.preventDefault();
-  var location = event.target.location.value;
-  var minCustomers = parseInt(event.target.minimumCustomers.value);
-  var maxCustomers = parseInt(event.target.maximumCustomers.value);
-  var averagePurchase = parseFloat(event.target.averagePurchase.value);
-  new CookiesPerLocation(location,minCustomers,maxCustomers,averagePurchase);
-  allLocationObjects[allLocationObjects.length-1].render();
-
-  replaceHourlyTotals('cookieChart');
-  replaceHourlyTotals('cookieStaff');
-}
-
-function createTableHeader(table) {
-  // make thead
-  var parent = document.getElementById(table);
-  var thead = document.createElement('thead');
-  parent.appendChild(thead);
-  // make tr
-  var tr = document.createElement('tr');
-  thead.appendChild(tr);
-  // make first space empty
-  var timeHeader = document.createElement('th');
-  timeHeader.textContent = '';
-  tr.appendChild(timeHeader);
-  // put times in
-  for (var i = 0; i < hours.length; i++){
-    timeHeader = document.createElement('th');
-    timeHeader.textContent = hours[i];
-    tr.appendChild(timeHeader);
-  }
-  // put Total in
-  timeHeader = document.createElement('th');
-  timeHeader.textContent = 'Totals:';
-  tr.appendChild(timeHeader);
-}
-
+// Constructor
 function CookiesPerLocation(location, minimumCustomers, maximumCustomers, avgCookieSale) {
   this.location = location;
   this.minimumCustomers = minimumCustomers;
@@ -57,7 +24,7 @@ function CookiesPerLocation(location, minimumCustomers, maximumCustomers, avgCoo
 
 // Find average cookies per hour based on traffic trends
 CookiesPerLocation.prototype.cookiesSoldPerHour = function(x){
-  var customer = Math.ceil(Math.random()*((Math.ceil(this.maximumCustomers*trafficTrends[x]) - this.minimumCustomers) + 1) + this.minimumCustomers);
+  var customer = Math.floor((Math.random()*(this.maximumCustomers*trafficTrends[x]) - this.minimumCustomers + 1)) + this.minimumCustomers;
   var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
   return cookiesPerHour;
 };
@@ -115,6 +82,7 @@ CookiesPerLocation.prototype.render = function(){
   }
 };
 
+// Global Functions
 // Total cookie sales per hour accross locations
 function getTotals(){
   var totals = [];
@@ -165,6 +133,8 @@ function renderHourlyTotals(table){
     tr.appendChild(hourTotal);
   }
 }
+
+// Replace hourly totals when new location is added
 function replaceHourlyTotals(table){
   var parent = document.getElementById(table);
   var tfoot = parent.getElementsByTagName('tfoot')[0];
@@ -181,18 +151,57 @@ function replaceHourlyTotals(table){
   }
 }
 
+function createTableHeader(table) {
+  // make thead
+  var parent = document.getElementById(table);
+  var thead = document.createElement('thead');
+  parent.appendChild(thead);
+  // make tr
+  var tr = document.createElement('tr');
+  thead.appendChild(tr);
+  // make first space empty
+  var timeHeader = document.createElement('th');
+  timeHeader.textContent = '';
+  tr.appendChild(timeHeader);
+  // put times in
+  for (var i = 0; i < hours.length; i++){
+    timeHeader = document.createElement('th');
+    timeHeader.textContent = hours[i];
+    tr.appendChild(timeHeader);
+  }
+  // put Total in
+  timeHeader = document.createElement('th');
+  timeHeader.textContent = 'Totals:';
+  tr.appendChild(timeHeader);
+}
+
+// Function to create add a location from user input
+function addNewLocation(event) {
+  event.preventDefault();
+  var location = event.target.location.value;
+  var minCustomers = parseInt(event.target.minimumCustomers.value);
+  var maxCustomers = parseInt(event.target.maximumCustomers.value);
+  var averagePurchase = parseFloat(event.target.averagePurchase.value);
+
+  new CookiesPerLocation(location,minCustomers,maxCustomers,averagePurchase);
+  allLocationObjects[allLocationObjects.length-1].render();
+
+  replaceHourlyTotals('cookieChart');
+  replaceHourlyTotals('cookieStaff');
+}
+
+// Add objects to array
 new CookiesPerLocation('Seattle',23,65,6.3);
 new CookiesPerLocation('Tokyo',3,24,1.2);
 new CookiesPerLocation('Dubai',11,38,3.7);
 new CookiesPerLocation('Paris', 20, 38, 2.3);
 new CookiesPerLocation('Lima',2,16,4.6);
 
-createTableHeader('cookieChart');
-createTableHeader('cookieStaff');
-
+// Render table
 for (var i = 0; i < allLocationObjects.length; i++){
   allLocationObjects[i].render();
 }
-
+createTableHeader('cookieChart');
+createTableHeader('cookieStaff');
 renderHourlyTotals('cookieChart');
 renderHourlyTotals('cookieStaff');
