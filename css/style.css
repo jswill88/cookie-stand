@@ -2,11 +2,12 @@ body {
   background-color: rgba(241, 195, 217, 0.815);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   color: rgb(7, 59, 39);
-  font-size: 1.1em;
+  font-size: 1em;
 }
 header {
   overflow: auto;
-  min-width: 500px;
+  height: 130px;
+  min-width: 850px;
 }
 header p, footer {
   text-align: center;
@@ -68,10 +69,11 @@ ul {
 .line{
   width: 100%;
   display: flex;
-  text-align: justify;
 }
 .col1{
   width: 50%;
+  min-height: 300px;
+  min-width: 500px;
   padding: 20px;
   border-right: black 1px solid;
   box-shadow: green 2px 2px 1%;
@@ -91,7 +93,6 @@ ul {
 #sales-footer {
   margin-top: 20px;
 }
-
 /* table */
 .table-one{
   padding: 0 3% 0 3%;
@@ -101,7 +102,6 @@ ul {
   font-size: 110%;
   width: 600px;
 }
-
 table {
   width: 90%;
   background-color: rgb(196, 224, 213);
@@ -136,25 +136,25 @@ td:hover{
   box-shadow: none;
   border-radius: none;
 }
-#menu-images{
-  overflow: auto;
-  /* min-width: 1000px; */
-}
-
 #frosted{
-  height: 170px;
+  height: 140px;
   float: left;
-  border-radius: 15px;
   margin-right: 20px;
   margin-left: 20px;
   margin-top: 10px;
+}
+#fish-shirt {
+  height: 140px;
+  float: center;
+  margin: 0 20px 5px 20px;
 }
 #cookie-cutter {
   width: 300px;
   height: 125px;
   object-fit: cover;
-  float: left;
-  margin-left: 200px;
+  float: right;
+  margin-right: 80px;
+  margin-top: 10px;
 }
 #colorful-fish {
   width: 300px;
@@ -165,18 +165,18 @@ td:hover{
   margin-top: 20px;
 }
 #family {
-  width: 225px;
+  width: 200px;
   float: right;
-  margin-right: 20px;
+  margin: 5px;
   border-radius: 15px;
+}
+#menu-images {
+  min-width: 500px;
+  overflow: auto;
+  height: 160px;
 }
 #chinook {
   margin-top: 20px;
-}
-#fish-shirt {
-  height: 170px;
-  float: left;
-  margin: 0 20px;
 }
 .shadow {
   border-radius: 15%;
@@ -185,3 +185,29 @@ td:hover{
 #hours {
   width: 250px;
 }
+#enter-new-location { 
+  font-size: 110%;
+  /* border: double black 2px; */
+  width: 340px;
+  text-align: right;
+  padding: 10px;
+  margin: 10px;
+  margin-left: 50px;
+  border-top: 1px solid rgb(165, 165, 165);
+  border-left: 1px solid rgb(165, 165, 165);
+  box-shadow: inset rgb(165, 165, 165) -2px -2px 4px;
+  background-color: rgba(255, 218, 225, 0.329);
+}
+#enter-new-location h2 {
+  padding: 10px;
+  margin: 0;
+}
+#enter-new-location input {
+  margin: 3px;
+}
+#submit {
+  width: 140px;
+  font-size: 120%;
+}
+
+
