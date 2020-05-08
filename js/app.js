@@ -24,7 +24,12 @@ function CookiesPerLocation(location, minimumCustomers, maximumCustomers, avgCoo
 
 // Find average cookies per hour based on traffic trends
 CookiesPerLocation.prototype.cookiesSoldPerHour = function(x){
-  var customer = Math.floor((Math.random()*(this.maximumCustomers*trafficTrends[x]) - this.minimumCustomers + 1)) + this.minimumCustomers;
+  if (this.maximumCustomers * trafficTrends[x] > this.minimumCustomers) {
+    var customer = Math.floor(Math.random()*(this.maximumCustomers*trafficTrends[x] - this.minimumCustomers + 1) + this.minimumCustomers);
+  } else {
+    customer = this.minimumCustomers;
+  }
+  console.log(this.location + 'customers ' + customer);
   var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
   return cookiesPerHour;
 };
@@ -38,17 +43,17 @@ CookiesPerLocation.prototype.staffNeededPerHour = function(cookies){
 
 // Makes cookie array and staff needed array
 CookiesPerLocation.prototype.makeCookieArray = function(){
-  console.log(this.location);
+  // console.log(this.location);
   for (var i = 0; i < hours.length; i++) {
     var soldThisHour = this.cookiesSoldPerHour(i);
     var staffThisHour = this.staffNeededPerHour(soldThisHour);
     this.cookieArray.push(soldThisHour);
     this.staffNeededArray.push(staffThisHour);
-    console.log(`current ${soldThisHour}`);
-    console.log(`current ${staffThisHour}`);
+    // console.log(`current ${soldThisHour}`);
+    // console.log(`current ${staffThisHour}`);
     this.total += soldThisHour;
     this.staffTotal += staffThisHour;
-    console.log(`total ${this.total}`);
+    // console.log(`total ${this.total}`);
   }
   this.cookieArray.push(this.total);
   this.staffNeededArray.push(this.staffTotal);
