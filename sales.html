@@ -23,26 +23,30 @@
   </header>
 
   <main>
-    <h2>Enter New Location</h2>
-    <form id="form">
-      <fieldset>
-        <label>Location
-          <input name ="location" type ="text" />
-        </label></br>
-        <Label>Minimum Customers
-          <input name ="minimumCustomers" type ="number" />
-        </Label></br>
-        <label>Maximum Customers
-          <input name ="maximumCustomers" type ="number" />
-        </label></br>
-        <label>Average Cookie Purchase Per Customer
-          <input name ="averagePurchase" type ="number" step=".1" />
-        </label></br>
-        <label>
-          <input type="submit" value="Submit" name="create"/>
-        </label>
-      </fieldset>
-    </form>
+    <section id="enter-new-location">
+      <h2>Enter New Location</h2>
+      <form id="form">
+        <fieldset>
+          <label>City
+            <input name ="location" type ="text" />
+          </label></br>
+          <Label>Minimum Customers
+            <input name ="minimumCustomers" type ="number" />
+          </Label></br>
+          <label>Maximum Customers
+            <input name ="maximumCustomers" type ="number" />
+          </label></br>
+          <label>Average Cookie Purchase
+            <input name ="averagePurchase" type ="number" step=".1" />
+          </label></br>
+          <label>
+            <input type="submit" value="Submit" name="create" id="submit"/>
+          </label>
+        </fieldset>
+      </form>
+    </section>
+    
+    
     
     <section class = "table-one">
       <h2>Hourly Salmon Cookie Sales By Location</h2>
