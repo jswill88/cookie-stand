@@ -24,10 +24,12 @@ function CookiesPerLocation(location, minimumCustomers, maximumCustomers, avgCoo
 
 // Find average cookies per hour based on traffic trends
 CookiesPerLocation.prototype.cookiesSoldPerHour = function(x){
-  // var customer = this.maximumCustomers * trafficTrends[x];
-  var customer = Math.floor(Math.random()*(this.maximumCustomers*trafficTrends[x] - this.minimumCustomers + 1) + this.minimumCustomers);
+  if (this.maximumCustomers * trafficTrends[x] > this.minimumCustomers) {
+    var customer = Math.floor(Math.random()*(this.maximumCustomers*trafficTrends[x] - this.minimumCustomers + 1) + this.minimumCustomers);
+  } else {
+    customer = this.minimumCustomers;
+  }
   console.log(this.location + 'customers ' + customer);
-  // debugger;
   var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
   return cookiesPerHour;
 };
