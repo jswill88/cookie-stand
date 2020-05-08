@@ -78,6 +78,7 @@ CookiesPerLocation.prototype.makeCookieArray = function(){
     this.cookieArray.push(soldThisHour);
     this.staffNeededArray.push(staffThisHour);
     console.log(`current ${soldThisHour}`);
+    console.log(`current ${staffThisHour}`);
     this.total += soldThisHour;
     this.staffTotal += staffThisHour;
     console.log(`total ${this.total}`);
@@ -130,8 +131,8 @@ function getTotals(){
 // Total staff needed per hour accross locations
 function getStaffTotals(){
   var totals = [];
-  var hourlyTotal = 0;
   for (var i = 0; i < (hours.length + 1); i++) {
+    var hourlyTotal = 0;
     for (var j = 0; j < allLocationObjects.length; j++) {
       hourlyTotal += allLocationObjects[j].staffNeededArray[i];
     }
