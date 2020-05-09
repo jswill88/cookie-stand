@@ -2,10 +2,10 @@
 
 // Global Variables
 var hours = ['6am','7am','8am', '9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
-var trafficTrends = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
-
-// Array holding all location objects
+var trafficTrends = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4];
 var allLocationObjects =[];
+
+// Set up form
 var form = document.getElementById('form');
 form.addEventListener('submit', addNewLocation);
 
@@ -30,7 +30,6 @@ CookiesPerLocation.prototype.cookiesSoldPerHour = function(x){
   } else {
     customer = this.minimumCustomers;
   }
-  console.log(this.location + 'customers ' + customer);
   var cookiesPerHour = Math.round((this.avgCookieSale) * customer);
   return cookiesPerHour;
 };
@@ -44,17 +43,13 @@ CookiesPerLocation.prototype.staffNeededPerHour = function(cookies){
 
 // Makes cookie array and staff needed array
 CookiesPerLocation.prototype.makeCookieArray = function(){
-  // console.log(this.location);
   for (var i = 0; i < hours.length; i++) {
     var soldThisHour = this.cookiesSoldPerHour(i);
     var staffThisHour = this.staffNeededPerHour(soldThisHour);
     this.cookieArray.push(soldThisHour);
     this.staffNeededArray.push(staffThisHour);
-    // console.log(`current ${soldThisHour}`);
-    // console.log(`current ${staffThisHour}`);
     this.total += soldThisHour;
     this.staffTotal += staffThisHour;
-    // console.log(`total ${this.total}`);
   }
   this.cookieArray.push(this.total);
   this.staffNeededArray.push(this.staffTotal);
@@ -63,32 +58,36 @@ CookiesPerLocation.prototype.makeCookieArray = function(){
 // Renders cookie and staff table
 CookiesPerLocation.prototype.render = function(){
   this.makeCookieArray();
-  var parent = document.getElementById('cookieChart');
-  var locationRow = document.createElement('tr');
-  parent.appendChild(locationRow);
-  var rowTitle = document.createElement('th');
-  rowTitle.textContent = this.location;
-  locationRow.appendChild(rowTitle);
+  var locationRow = makeNewRow('cookieChart','tr');
+  appendElement(locationRow,'th',this.location);
   for (var j = 0; j < this.cookieArray.length; j++) {
-    var cookieData = document.createElement('td');
-    cookieData.textContent = this.cookieArray[j];
-    locationRow.appendChild(cookieData);
+    appendElement(locationRow, 'td', this.cookieArray[j]);
   }
-  // make second table
-  parent = document.getElementById('cookieStaff');
-  locationRow = document.createElement('tr');
-  parent.appendChild(locationRow);
-  rowTitle = document.createElement('th');
-  rowTitle.textContent = this.location;
-  locationRow.appendChild(rowTitle);
+
+  // Make staff table
+  locationRow = makeNewRow('cookieStaff','tr');
+  appendElement(locationRow,'th',this.location);
   for (var k = 0; k < this.cookieArray.length; k++) {
-    var staffData = document.createElement('td');
-    staffData.textContent = this.staffNeededArray[k];
-    locationRow.appendChild(staffData);
+    appendElement(locationRow, 'td', this.staffNeededArray[k]);
   }
 };
 
 // Global Functions
+// Append element to table parent
+function makeNewRow(tableId, elementType){
+  var parent = document.getElementById(tableId);
+  var tr = document.createElement(elementType);
+  parent.appendChild(tr);
+  return tr;
+}
+
+// Append a child element with text to parent
+function appendElement(parent, child, elementText) {
+  var childElement = document.createElement(child);
+  childElement.textContent = elementText;
+  parent.appendChild(childElement);
+}
+
 // Total cookie sales per hour accross locations
 function getTotals(){
   var totals = [];
@@ -118,16 +117,12 @@ function getStaffTotals(){
 // Renders hourly totals for both tables
 function renderHourlyTotals(table){
   // make tfoot
-  var parent = document.getElementById(table);
-  var tfoot = document.createElement('tfoot');
-  parent.appendChild(tfoot);
+  var tfoot = makeNewRow(table,'tfoot');
   // make row
   var tr = document.createElement('tr');
   tfoot.appendChild(tr);
   // make first line
-  var totalsTitle = document.createElement('th');
-  totalsTitle.textContent = 'Totals:';
-  tr.appendChild(totalsTitle);
+  appendElement(tr,'th','Totals:');
   // add data
   for (var i = 0; i < getTotals().length; i++){
     var hourTotal = document.createElement('td');
@@ -159,26 +154,17 @@ function replaceHourlyTotals(table){
 
 function createTableHeader(table) {
   // make thead
-  var parent = document.getElementById(table);
-  var thead = document.createElement('thead');
-  parent.appendChild(thead);
+  var thead = makeNewRow(table,'thead');
   // make tr
   var tr = document.createElement('tr');
   thead.appendChild(tr);
   // make first space empty
-  var timeHeader = document.createElement('th');
-  timeHeader.textContent = '';
-  tr.appendChild(timeHeader);
+  appendElement(tr,'th','');
   // put times in
   for (var i = 0; i < hours.length; i++){
-    timeHeader = document.createElement('th');
-    timeHeader.textContent = hours[i];
-    tr.appendChild(timeHeader);
+    appendElement(tr, 'th', hours[i]);
   }
-  // put Total in
-  timeHeader = document.createElement('th');
-  timeHeader.textContent = 'Totals:';
-  tr.appendChild(timeHeader);
+  appendElement(tr, 'th', 'Totals:');
 }
 
 // Function to create add a location from user input
