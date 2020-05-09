@@ -89,25 +89,16 @@ function appendElement(parent, child, elementText) {
 }
 
 // Total cookie sales per hour accross locations
-function getTotals(){
+function getTotals(table){
   var totals = [];
   for (var i = 0; i < (hours.length + 1); i++) {
     var hourlyTotal = 0;
     for(var j = 0; j < allLocationObjects.length; j++) {
-      hourlyTotal += allLocationObjects[j].cookieArray[i];
-    }
-    totals.push(hourlyTotal);
-  }
-  return totals;
-}
-
-// Total staff needed per hour accross locations
-function getStaffTotals(){
-  var totals = [];
-  for (var i = 0; i < (hours.length + 1); i++) {
-    var hourlyTotal = 0;
-    for (var j = 0; j < allLocationObjects.length; j++) {
-      hourlyTotal += allLocationObjects[j].staffNeededArray[i];
+      if (table === 'cookieChart'){
+        hourlyTotal += allLocationObjects[j].cookieArray[i];
+      } else if (table === 'cookieStaff') {
+        hourlyTotal += allLocationObjects[j].staffNeededArray[i];
+      }
     }
     totals.push(hourlyTotal);
   }
@@ -125,13 +116,7 @@ function renderHourlyTotals(table){
   appendElement(tr,'th','Totals:');
   // add data
   for (var i = 0; i < getTotals().length; i++){
-    var hourTotal = document.createElement('td');
-    if (table === 'cookieChart') {
-      hourTotal.textContent = getTotals()[i];
-    } else if (table === 'cookieStaff') {
-      hourTotal.textContent = getStaffTotals()[i];
-    }
-    tr.appendChild(hourTotal);
+    appendElement(tr,'td',getTotals(table)[i]);
   }
 }
 
@@ -142,13 +127,9 @@ function replaceHourlyTotals(table){
   var tr = tfoot.getElementsByTagName('tr')[0];
 
   // loop to change contents of tds
-  for (var i = 0; i < getTotals().length; i++){
+  for (var i = 0; i < getTotals(table).length; i++){
     var td = tr.getElementsByTagName('td')[i];
-    if (table === 'cookieChart') {
-      td.textContent = getTotals()[i];
-    } else if (table === 'cookieStaff') {
-      td.textContent = getStaffTotals()[i];
-    }
+    td.textContent = getTotals(table)[i];
   }
 }
 
