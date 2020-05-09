@@ -107,12 +107,9 @@ function getTotals(table){
 
 // Renders hourly totals for both tables
 function renderHourlyTotals(table){
-  // make tfoot
   var tfoot = makeNewRow(table,'tfoot');
-  // make row
   var tr = document.createElement('tr');
   tfoot.appendChild(tr);
-  // make first line
   appendElement(tr,'th','Totals:');
   // add data
   for (var i = 0; i < getTotals().length; i++){
@@ -134,12 +131,9 @@ function replaceHourlyTotals(table){
 }
 
 function createTableHeader(table) {
-  // make thead
   var thead = makeNewRow(table,'thead');
-  // make tr
   var tr = document.createElement('tr');
   thead.appendChild(tr);
-  // make first space empty
   appendElement(tr,'th','');
   // put times in
   for (var i = 0; i < hours.length; i++){
